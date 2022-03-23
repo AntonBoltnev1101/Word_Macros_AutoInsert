@@ -1,0 +1,55 @@
+
+
+Sub AutoOpen()
+
+
+Dim am As Bookmark
+Set am = ActiveDocument.Bookmarks("date")
+
+am.Range.Select
+With Selection
+.Text = Format(Date, "dd/mm/yyyy")
+.Bookmarks.Add Name:="date"
+.Collapse wdCollapseEnd
+End With
+Set am = Nothing
+
+
+
+Dim bm As Bookmark
+Dim i As Long
+
+
+
+Set bm = ActiveDocument.Bookmarks("num")
+i = Val(bm.Range.Text)
+bm.Range.Select
+With Selection
+   .Text = i + 1
+   .Bookmarks.Add Name:="num"
+   .Collapse wdCollapseEnd
+   
+   If i = 10 Then
+   
+   i = 0
+   bm.Range.Delete
+   .Text = i + 1
+   .Bookmarks.Add Name:="num"
+   .Collapse wdCollapseEnd
+   End If
+   
+   
+End With
+
+
+
+
+
+Set bm = Nothing
+ActiveDocument.Save
+
+End Sub
+
+
+
+
